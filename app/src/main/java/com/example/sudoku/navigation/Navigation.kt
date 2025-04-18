@@ -7,6 +7,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.sudoku.ui.main.MainVM
 import com.example.sudoku.ui.onboarding.OnboardingVM
+import com.example.sudoku.ui.register.RegisterScreen
+import com.example.sudoku.ui.register.RegisterVM
 import com.example.sudoku.ui.splash.Splash1Screen
 import com.example.sudoku.ui.splash.SplashScreen
 import com.example.sudoku.ui.splash.SplashVM
@@ -27,7 +29,7 @@ sealed class Screen(val route : String){
 fun MyNavigation(){
     val navController = rememberNavController()
 
-    NavHost(navController = navController, startDestination = Screen.Splash.route)
+    NavHost(navController = navController, startDestination = Screen.Register.route)
     {
         composable(Screen.Splash.route){
             val splashVM: SplashVM = hiltViewModel()
@@ -40,8 +42,8 @@ fun MyNavigation(){
         }
 
         composable(Screen.Register.route){
-            // val registerVM: RegisterVM = hiltViewModel()
-            // RegisterScreen(navController = navController, viewModel = registerVM)
+            val registerVM: RegisterVM = hiltViewModel()
+            RegisterScreen(navController = navController, viewModel = registerVM)
         }
 
         composable(Screen.Onboarding.route){

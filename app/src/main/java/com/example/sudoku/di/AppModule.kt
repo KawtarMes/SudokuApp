@@ -2,9 +2,9 @@ package com.example.sudoku.di
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.example.sudoku.API_KEY
+import com.example.sudoku.BASE_URL
 import com.example.sudoku.MyPrefs
-import com.example.sudoku.data.API_KEY
-import com.example.sudoku.data.BASE_URL
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

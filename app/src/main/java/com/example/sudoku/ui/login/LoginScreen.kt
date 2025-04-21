@@ -1,16 +1,13 @@
-package com.example.sudoku.ui.register
+package com.example.sudoku.ui.login
 
-import android.content.Context
-import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.size
-import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
@@ -21,26 +18,23 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.sudoku.R
-import com.example.sudoku.navigation.Screen
+import com.example.sudoku.ui.register.ContinueButton
+import com.example.sudoku.ui.register.RegisteContent
 import com.example.sudoku.ui.theme.red
 import com.example.sudoku.ui.theme.yellow
-import io.github.jan.supabase.realtime.Column
-import kotlinx.coroutines.flow.collect
-
 
 @Composable
-fun RegisterScreen(navController: NavController, viewModel: RegisterVM){
+fun LoginScreen(navController: NavController, viewModel: LoginVM) {
 
-    var username  by remember { mutableStateOf("") }
     var email  by remember { mutableStateOf("") }
     var password  by remember { mutableStateOf("") }
 
@@ -57,58 +51,43 @@ fun RegisterScreen(navController: NavController, viewModel: RegisterVM){
         }
     }
 
-     RegisteContent(
-         email =email,
-         password= password,
-         username= username,
-         onUsernameChange = {username = it},
-         onEmailChange =  {email = it},
-         onPasswordChange = {password= it},
-         onClick = {
-             viewModel.signUpWithEmail(
-                 email,
-                 password,
-                 username
-             )
-         }
-     )
+    LoginContent(
+        email =email,
+        password= password,
+        onEmailChange =  {email = it},
+        onPasswordChange = {password= it},
+        onClick = {
+            viewModel.signInWithEmail(
+                email,
+                password,
+            )
+        },
+        onNavToRegister = { viewModel.navigateToRegisterScreen() },
+    )
 }
 
 //@Preview
 @Composable
-fun RegisteContent(
-                   email : String,
-                   password: String,
-                   username: String,
-                   onEmailChange: (String) -> Unit,
-                   onUsernameChange: (String) -> Unit,
-                   onPasswordChange: (String) -> Unit,
-                   onClick: () -> Unit
+fun LoginContent(
+    email : String,
+    password: String,
+    onEmailChange: (String) -> Unit,
+    onPasswordChange: (String) -> Unit,
+    onClick: () -> Unit,
+    onNavToRegister: ()-> Unit,
 ) {
 
     Column (
         Modifier
             .fillMaxSize()
-            .background(Color.White)
+            .background(Color.White),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.SpaceAround
     ){
         Image(
             painter = painterResource(id = R.drawable.text_logo),
             contentDescription = null ,
         )
-        Text(
-            text = stringResource(R.string.register_name)
-        )
-
-        TextField(
-            value = username,
-            onValueChange =onUsernameChange,
-            label = { Text(text = stringResource(R.string.username)) },
-            colors = TextFieldDefaults.colors(
-                focusedContainerColor = red,
-                unfocusedContainerColor = yellow
-            )
-        )
-
         TextField(
             value = email,
             onValueChange = onEmailChange,
@@ -128,27 +107,12 @@ fun RegisteContent(
                 unfocusedContainerColor = yellow
             )
         )
+
+        Spacer(Modifier)
         ContinueButton(onClick)
-    }
-}
-
-@Preview
-@Composable
-fun RegisterBackground(){
-
-}
-
-//@Preview
-@Composable
-fun ContinueButton(onClick: ()-> Unit){
-    Box(
-        Modifier.clickable {
-         onClick()
-    }
-    ) {
-        Image(
-            painter = painterResource(R.drawable.button_continue),
-            contentDescription = stringResource(R.string.register_button_continue_desc)
+        Text(
+            text = stringResource(R.string.create_account),
+            modifier = Modifier.clickable { onNavToRegister() }
         )
     }
 }

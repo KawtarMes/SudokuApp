@@ -5,7 +5,11 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.sudoku.ui.login.LoginScreen
+import com.example.sudoku.ui.login.LoginVM
+import com.example.sudoku.ui.main.MainScreen
 import com.example.sudoku.ui.main.MainVM
+import com.example.sudoku.ui.onboarding.OnBoardingScreen
 import com.example.sudoku.ui.onboarding.OnboardingVM
 import com.example.sudoku.ui.register.RegisterScreen
 import com.example.sudoku.ui.register.RegisterVM
@@ -29,7 +33,7 @@ sealed class Screen(val route : String){
 fun MyNavigation(){
     val navController = rememberNavController()
 
-    NavHost(navController = navController, startDestination = Screen.Register.route)
+    NavHost(navController = navController, startDestination = Screen.Splash.route)
     {
         composable(Screen.Splash.route){
             val splashVM: SplashVM = hiltViewModel()
@@ -48,17 +52,17 @@ fun MyNavigation(){
 
         composable(Screen.Onboarding.route){
             val onboardingVM: OnboardingVM = hiltViewModel()
-          // OnboardingScreen(navController = navController, viewModel = onboardingVM)
+           OnBoardingScreen(navController = navController, viewModel = onboardingVM)
         }
 
         composable(Screen.Main.route){
             val mainVM: MainVM = hiltViewModel()
-           // MainScreen(navController = navController, viewModel = mainVM)
+            MainScreen(navController = navController, viewModel = mainVM)
         }
 
         composable(Screen.Login.route){
-           // val mainVM: LoginVM = hiltViewModel()
-            // LoginScreen(navController = navController, viewModel = loginVM)
+           val loginVM: LoginVM = hiltViewModel()
+            LoginScreen(navController = navController, viewModel = loginVM)
         }
 
         composable(Screen.Result.route){

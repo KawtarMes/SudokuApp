@@ -3,7 +3,9 @@
 
     <string name="register_button_continue_desc">Continue Button</string>
     <string name="register_name">Tell me your name</string>
-    <string name="username">name</string>
+    <string name="username">username</string>
     <string name="password">password</string>
+    <string name="email">email</string>
+    <string name="create_account">Create an account</string>
 
 </resources>

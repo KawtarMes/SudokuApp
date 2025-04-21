@@ -1,8 +1,11 @@
 package com.example.sudoku.ui.main
 
 import androidx.lifecycle.ViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class MainVM : ViewModel() {
+@HiltViewModel
+class MainVM @Inject constructor(): ViewModel() {
 
 
 

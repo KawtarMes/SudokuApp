@@ -18,10 +18,6 @@ class SplashVM @Inject constructor(
     val myPrefs: MyPrefs,
 ): ViewModel() {
 
-    // navigate du splash à splash 1
-    // apres verifier connection user
-    //navigur a Main ou A login à partir du Splash1
-
     private val _navigateToSecondSplash = MutableStateFlow<Boolean>(false)
     val navigateToSecondSplash : StateFlow<Boolean> get() = _navigateToSecondSplash
 

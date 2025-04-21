@@ -3,7 +3,6 @@ package com.example.sudoku.ui.login
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.sudoku.data.repositories.UserRepository
 import com.example.sudoku.navigation.Screen
 import dagger.hilt.android.lifecycle.HiltViewModel

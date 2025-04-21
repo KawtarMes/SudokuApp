@@ -3,15 +3,11 @@ package com.example.sudoku.data.repositories
 import android.util.Log
 import com.example.sudoku.MyPrefs
 import io.github.jan.supabase.SupabaseClient
-import io.github.jan.supabase.auth.Auth
 import io.github.jan.supabase.auth.auth
 import io.github.jan.supabase.auth.providers.builtin.Email
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.put
 import javax.inject.Inject
-//import io.github.jan.supabase.auth.providers.Email
 class UserRepository @Inject constructor(
     val supabase : SupabaseClient,
     val myPrefs: MyPrefs

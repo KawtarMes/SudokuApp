@@ -24,11 +24,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import com.example.sudoku.R
 import com.example.sudoku.ui.register.ContinueButton
-import com.example.sudoku.ui.register.RegisteContent
 import com.example.sudoku.ui.theme.red
 import com.example.sudoku.ui.theme.yellow
 

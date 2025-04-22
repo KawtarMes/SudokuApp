@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
@@ -24,9 +25,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.sudoku.R
-import com.example.sudoku.ui.register.ContinueButton
+import com.example.sudoku.ui.composables.RedButton
 import com.example.sudoku.ui.theme.red
 import com.example.sudoku.ui.theme.yellow
 
@@ -64,7 +67,7 @@ fun LoginScreen(navController: NavController, viewModel: LoginVM) {
     )
 }
 
-//@Preview
+
 @Composable
 fun LoginContent(
     email : String,
@@ -80,37 +83,59 @@ fun LoginContent(
             .fillMaxSize()
             .background(Color.White),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.SpaceAround
-    ){
-        Image(
-            painter = painterResource(id = R.drawable.text_logo),
-            contentDescription = null ,
-        )
-        TextField(
-            value = email,
-            onValueChange = onEmailChange,
-            label = { Text(text = stringResource(R.string.email)) },
-            colors = TextFieldDefaults.colors(
-                focusedContainerColor = red,
-                unfocusedContainerColor = yellow
-            )
-        )
+        verticalArrangement = Arrangement.SpaceBetween
+    ) {
 
-        TextField(
-            value = password,
-            onValueChange = onPasswordChange,
-            label = { Text(text = stringResource(R.string.password)) },
-            colors = TextFieldDefaults.colors(
-                focusedContainerColor = red,
-                unfocusedContainerColor = yellow
-            )
-        )
+        Column(
+            Modifier.weight(2f),
+            verticalArrangement = Arrangement.SpaceAround,
 
-        Spacer(Modifier)
-        ContinueButton(onClick)
-        Text(
-            text = stringResource(R.string.create_account),
-            modifier = Modifier.clickable { onNavToRegister() }
+            ) {
+            Image(
+                painter = painterResource(id = R.drawable.text_logo),
+                contentDescription = null,
+            )
+
+            TextField(
+                value = email,
+                onValueChange = onEmailChange,
+                label = { Text(text = stringResource(R.string.email)) },
+                colors = TextFieldDefaults.colors(
+                    focusedContainerColor = red,
+                    unfocusedContainerColor = yellow
+                )
+            )
+
+            TextField(
+                value = password,
+                onValueChange = onPasswordChange,
+                label = { Text(text = stringResource(R.string.password)) },
+                colors = TextFieldDefaults.colors(
+                    focusedContainerColor = red,
+                    unfocusedContainerColor = yellow
+                )
+            )
+            Text(
+                text = stringResource(R.string.create_account),
+                modifier = Modifier
+                    .clickable { onNavToRegister() }
+                    .padding(10.dp)
+            )
+            Spacer(Modifier)
+        }
+
+        RedButton(
+            onClick,
+            text = stringResource(R.string.continue_button_text),
+            buttonAlignementModifier = Modifier
         )
     }
+
+
+}
+
+@Preview
+@Composable
+fun Previewfunc() {
+    LoginContent("", "", { "" }, { "" }, {}) { }
 }

@@ -22,6 +22,8 @@ sealed class Screen(val route : String){
     object Splash1 : Screen("splash1")
     object Main : Screen("main")
     object Onboarding: Screen("onboarding")
+    object Onboarding2 : Screen("onboarding2")
+    object Onboarding3 : Screen("onboarding3")
     object Level : Screen("level")
     object Register : Screen("register")
     object Login: Screen("login")

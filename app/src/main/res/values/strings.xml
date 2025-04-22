@@ -7,5 +7,24 @@
     <string name="password">password</string>
     <string name="email">email</string>
     <string name="create_account">Create an account</string>
+    <string name="next_button_desc">Next Button</string>
+    <string name="back_button_desc">Back Button</string>
+    <string name="lets_start_button_desc">Let\'s start button</string>
+    <string name="lets_play_button_desc">Let\'s play Button</string>
+    <string name="onboarding1_text">Grow from Eggshell to Wise Owl as you solve puzzles designed for every skill level!</string>
+    <string name="onboarding1_title">Progressive Sudoku Challenges</string>
+    <string name="onboarding2_text">Crack hidden rewards every day with our Daily Egg Hunt!</string>
+    <string name="onboarding2_title">Daily Egg Hunt</string>
+    <string name="onboarding3_title">Night Owl Mode</string>
+    <string name="onboarding3_text">Solve Sudoku puzzles in style, day or night!</string>
+    <string name="welcome_text">Crack the puzzles, spread your wings, and become a Sudoku master!</string>
+    <string name="welcome_title">Welcome to</string>
+
+    <string name="continue_button_text">Continue</string>
+    <string name="next_button_text">Next </string>
+    <string name="lets_start_button_text">Let\'s Start!</string>
+    <string name="lets_play_button_text">Let\'s Play!</string>
+    <string name="back_button_text">Back </string>
+
 
 </resources>

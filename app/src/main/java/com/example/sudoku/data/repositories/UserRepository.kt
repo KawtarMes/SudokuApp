@@ -26,6 +26,7 @@ class UserRepository @Inject constructor(
                 data = buildJsonObject { put("username", username) }
             }
             val session = supabase.auth.currentSessionOrNull()
+
             if (session != null && response != null) {
                 myPrefs.userId = session.user?.id ?: ""
                 myPrefs.token = session.accessToken

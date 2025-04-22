@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -20,91 +19,77 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.zIndex
 import androidx.navigation.NavController
 import com.example.sudoku.R
-import com.example.sudoku.navigation.Screen
 import com.example.sudoku.ui.composables.RedButton
-
+import com.example.sudoku.ui.composables.WhiteButton
 
 @Composable
-fun OnBoardingScreen(navController: NavController, viewModel: OnboardingVM) {
+fun OnboardingScreen3(navController: NavController, viewmodel: OnboardingVM) {
+//navto
+//popstack
 
-    //  OnBoardingPage1(onClick= {viewModel.navigateToOnBoarding2()})
-    LaunchedEffect(Unit) {
-        viewModel.navigateToNextScreen.collect { nextScreen ->
-            navController.navigate(nextScreen) {
-                popUpTo(Screen.Onboarding.route) { inclusive = true }
-            }
-        }
-    }
 }
 
-
-
-@Composable
 @Preview
-fun OnBoardingPage1(
-    //onClick: ()->Unit
-) {
-    Column (
+@Composable
+fun OnBoardingPage3() {
+    Column(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.White),
         verticalArrangement = Arrangement.SpaceBetween
-    ){
+    ) {
+
         Column(
-            modifier = Modifier.weight(3f),
+            modifier = Modifier.weight(2f),
             verticalArrangement = Arrangement.SpaceEvenly
         ) {
             Text(
-                text = stringResource(R.string.onboarding1_title),
+                text = stringResource(R.string.onboarding3_title),
                 textAlign = TextAlign.Center,
                 fontSize = 26.sp,
                 modifier = Modifier.padding(10.dp)
             )
             Image(
-                painter = painterResource(id = R.drawable.carrousel_levels),
+                painter = painterResource(id = R.drawable.onboarding3),
                 contentDescription = null,
             )
 
             Text(
-                text = stringResource(R.string.onboarding1_text),
+                text = stringResource(R.string.onboarding3_text),
                 textAlign = TextAlign.Center,
                 fontSize = 18.sp,
                 modifier = Modifier.padding(10.dp)
-
             )
 
             Image(
-                painter = painterResource(id = R.drawable.pagination1),
+                painter = painterResource(id = R.drawable.pagination3),
                 contentDescription = null,
                 Modifier.align(Alignment.CenterHorizontally)
             )
         }
-
-        Box(
-
-            Modifier
-                .fillMaxWidth()
-                .align(Alignment.CenterHorizontally)
-        ) {
+        Box() {
             Image(
                 painter = painterResource(id = R.drawable.vector_onboarding),
                 contentDescription = null,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .zIndex(0f),
+                modifier = Modifier.fillMaxWidth(),
+                alignment = Alignment.BottomCenter
             )
 
-
             RedButton(
-                {},
+                onClick = {},
                 text = stringResource(R.string.next_button_text),
+                buttonAlignementModifier = Modifier.align(Alignment.Center)
+            )
+            WhiteButton(
+                onClick = {},
+                text = stringResource(R.string.back_button_text),
                 buttonAlignementModifier = Modifier.align(Alignment.BottomCenter)
             )
 
-
         }
+
     }
+
 }

@@ -2,11 +2,12 @@ package com.example.sudoku.ui.register
 
 import android.widget.Toast
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
@@ -17,14 +18,20 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.graphics.vector.rememberVectorPainter
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.sudoku.R
+import com.example.sudoku.ui.composables.RedButton
 import com.example.sudoku.ui.theme.red
 import com.example.sudoku.ui.theme.yellow
 
@@ -78,69 +85,81 @@ fun RegisteContent(
                    onClick: () -> Unit
 ) {
 
-    Column (
-        Modifier
-            .fillMaxSize()
-            .background(Color.White)
-    ){
-        Image(
-            painter = painterResource(id = R.drawable.text_logo),
-            contentDescription = null ,
-        )
-        Text(
-            text = stringResource(R.string.register_name)
-        )
+    Box(
+        Modifier.fillMaxSize()
+    ) {
+        RegisterBackground()
 
-        TextField(
-            value = username,
-            onValueChange =onUsernameChange,
-            label = { Text(text = stringResource(R.string.username)) },
-            colors = TextFieldDefaults.colors(
-                focusedContainerColor = red,
-                unfocusedContainerColor = yellow
+        Column(
+            Modifier
+                .fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.SpaceEvenly
+        ) {
+            Spacer(Modifier)
+            Image(
+                painter = painterResource(id = R.drawable.text_logo),
+                contentDescription = null,
             )
-        )
 
-        TextField(
-            value = email,
-            onValueChange = onEmailChange,
-            label = { Text(text = stringResource(R.string.email)) },
-            colors = TextFieldDefaults.colors(
-                focusedContainerColor = red,
-                unfocusedContainerColor = yellow
+            Image(
+                painter = painterResource(id = R.drawable.owl_logo),
+                contentDescription = null,
+                modifier = Modifier.size(70.dp)
             )
-        )
+            Text(
+                text = stringResource(R.string.register_name)
+            )
 
-        TextField(
-            value = password,
-            onValueChange = onPasswordChange,
-            label = { Text(text = stringResource(R.string.password)) },
-            colors = TextFieldDefaults.colors(
-                focusedContainerColor = red,
-                unfocusedContainerColor = yellow
+            TextField(
+                value = username,
+                onValueChange = onUsernameChange,
+                label = { Text(text = stringResource(R.string.username)) },
+                colors = TextFieldDefaults.colors(
+                    focusedContainerColor = red,
+                    unfocusedContainerColor = yellow
+                )
             )
-        )
-        ContinueButton(onClick)
+
+            TextField(
+                value = email,
+                onValueChange = onEmailChange,
+                label = { Text(text = stringResource(R.string.email)) },
+                colors = TextFieldDefaults.colors(
+                    focusedContainerColor = red,
+                    unfocusedContainerColor = yellow
+                )
+            )
+
+            TextField(
+                value = password,
+                onValueChange = onPasswordChange,
+                label = { Text(text = stringResource(R.string.password)) },
+                colors = TextFieldDefaults.colors(
+                    focusedContainerColor = red,
+                    unfocusedContainerColor = yellow
+                )
+            )
+
+            RedButton(
+                onClick,
+                text = stringResource(R.string.next_button_text),
+                buttonAlignementModifier = Modifier
+            )
+        }
     }
+
 }
 
 @Preview
 @Composable
 fun RegisterBackground(){
-
-}
-
-//@Preview
-@Composable
-fun ContinueButton(onClick: ()-> Unit){
-    Box(
-        Modifier.clickable {
-         onClick()
-    }
-    ) {
+    Box(Modifier.fillMaxSize()) {
         Image(
-            painter = painterResource(R.drawable.button_continue),
-            contentDescription = stringResource(R.string.register_button_continue_desc)
+            painter = rememberVectorPainter(image = ImageVector.vectorResource(R.drawable.vector_register)),
+            contentDescription = null,
+            contentScale = ContentScale.Crop,
         )
     }
 }
+

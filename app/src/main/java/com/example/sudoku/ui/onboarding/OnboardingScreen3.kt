@@ -10,17 +10,18 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.sudoku.R
+import com.example.sudoku.navigation.Screen
 import com.example.sudoku.ui.composables.RedButton
 import com.example.sudoku.ui.composables.WhiteButton
 import com.example.sudoku.ui.theme.SudokuFontFamily
@@ -30,11 +31,27 @@ fun OnboardingScreen3(navController: NavController, viewmodel: OnboardingVM) {
 //navto
 //popstack
 
+    OnBoardingContent3(
+        onNext = { viewmodel.navigateToWelcomeScreen() },
+        onBack = {}
+    )
+
+    LaunchedEffect(Unit) {
+        viewmodel.navigateToNextScreen.collect { nextScreen ->
+            navController.navigate(nextScreen) {
+                popUpTo(Screen.Onboarding2.route) { inclusive = false }
+            }
+        }
+    }
+
 }
 
-@Preview
+//@Preview
 @Composable
-fun OnBoardingPage3() {
+fun OnBoardingContent3(
+    onNext: () -> Unit,
+    onBack: () -> Unit
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -81,12 +98,12 @@ fun OnBoardingPage3() {
             )
 
             RedButton(
-                onClick = {},
+                onClick = onNext,
                 text = stringResource(R.string.next_button_text),
                 modifier = Modifier.align(Alignment.Center)
             )
             WhiteButton(
-                onClick = {},
+                onClick = onBack,
                 text = stringResource(R.string.back_button_text),
                 modifier = Modifier.align(Alignment.BottomCenter)
             )

@@ -17,10 +17,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.zIndex
 import androidx.navigation.NavController
 import com.example.sudoku.R
 import com.example.sudoku.navigation.Screen
@@ -31,11 +29,12 @@ import com.example.sudoku.ui.theme.SudokuFontFamily
 @Composable
 fun OnBoardingScreen(navController: NavController, viewModel: OnboardingVM) {
 
-    //  OnBoardingPage1(onClick= {viewModel.navigateToOnBoarding2()})
+    OnBoardingContent1(onClick = { viewModel.navigateToOnBoarding2() })
+
     LaunchedEffect(Unit) {
         viewModel.navigateToNextScreen.collect { nextScreen ->
             navController.navigate(nextScreen) {
-                popUpTo(Screen.Onboarding.route) { inclusive = true }
+                popUpTo(Screen.Onboarding.route) { inclusive = false }
             }
         }
     }
@@ -44,9 +43,9 @@ fun OnBoardingScreen(navController: NavController, viewModel: OnboardingVM) {
 
 
 @Composable
-@Preview
-fun OnBoardingPage1(
-    //onClick: ()->Unit
+//@Preview
+fun OnBoardingContent1(
+    onClick: () -> Unit
 ) {
     Column (
         modifier = Modifier
@@ -68,6 +67,7 @@ fun OnBoardingPage1(
             Image(
                 painter = painterResource(id = R.drawable.onboarding1_image),
                 contentDescription = null,
+                Modifier.fillMaxWidth()
             )
             Text(
                 text = stringResource(R.string.onboarding1_text),
@@ -84,7 +84,6 @@ fun OnBoardingPage1(
             )
         }
         Box(
-
             Modifier
                 .fillMaxWidth()
                 .align(Alignment.CenterHorizontally)
@@ -94,12 +93,10 @@ fun OnBoardingPage1(
                 contentDescription = null,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .zIndex(0f),
             )
 
-
             RedButton(
-                { },
+                onClick = onClick,
                 text = stringResource(R.string.next_button_text),
                 modifier = Modifier.align(Alignment.BottomCenter)
             )

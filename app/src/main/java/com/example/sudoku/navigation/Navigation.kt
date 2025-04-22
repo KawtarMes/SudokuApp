@@ -10,6 +10,8 @@ import com.example.sudoku.ui.login.LoginVM
 import com.example.sudoku.ui.main.MainScreen
 import com.example.sudoku.ui.main.MainVM
 import com.example.sudoku.ui.onboarding.OnBoardingScreen
+import com.example.sudoku.ui.onboarding.OnboardingScreen2
+import com.example.sudoku.ui.onboarding.OnboardingScreen3
 import com.example.sudoku.ui.onboarding.OnboardingVM
 import com.example.sudoku.ui.register.RegisterScreen
 import com.example.sudoku.ui.register.RegisterVM
@@ -35,7 +37,7 @@ sealed class Screen(val route : String){
 fun MyNavigation(){
     val navController = rememberNavController()
 
-    NavHost(navController = navController, startDestination = Screen.Splash.route)
+    NavHost(navController = navController, startDestination = Screen.Onboarding.route)
     {
         composable(Screen.Splash.route){
             val splashVM: SplashVM = hiltViewModel()
@@ -55,6 +57,16 @@ fun MyNavigation(){
         composable(Screen.Onboarding.route){
             val onboardingVM: OnboardingVM = hiltViewModel()
            OnBoardingScreen(navController = navController, viewModel = onboardingVM)
+        }
+
+        composable(Screen.Onboarding2.route) {
+            val onboardingVM: OnboardingVM = hiltViewModel()
+            OnboardingScreen2(navController = navController, viewmodel = onboardingVM)
+        }
+
+        composable(Screen.Onboarding3.route) {
+            val onboardingVM: OnboardingVM = hiltViewModel()
+            OnboardingScreen3(navController = navController, viewmodel = onboardingVM)
         }
 
         composable(Screen.Main.route){

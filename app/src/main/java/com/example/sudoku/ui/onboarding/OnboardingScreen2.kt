@@ -23,6 +23,7 @@ import androidx.navigation.NavController
 import com.example.sudoku.R
 import com.example.sudoku.ui.composables.RedButton
 import com.example.sudoku.ui.composables.WhiteButton
+import com.example.sudoku.ui.theme.SudokuFontFamily
 
 class OnboardingScreen2(navController: NavController, viewmodel: OnboardingVM) {
 
@@ -45,24 +46,26 @@ fun OnBoardingPage2() {
             Text(
                 text = stringResource(R.string.onboarding2_title),
                 textAlign = TextAlign.Center,
+                fontFamily = SudokuFontFamily,
                 fontSize = 26.sp,
                 modifier = Modifier.padding(10.dp)
             )
             Image(
-                painter = painterResource(id = R.drawable.onboarding2),
+                painter = painterResource(id = R.drawable.onboarding2_image),
                 contentDescription = null,
             )
 
             Text(
                 text = stringResource(R.string.onboarding2_text),
                 textAlign = TextAlign.Center,
+                fontFamily = SudokuFontFamily,
                 fontSize = 18.sp,
                 modifier = Modifier.padding(10.dp)
 
             )
 
             Image(
-                painter = painterResource(id = R.drawable.pagination2),
+                painter = painterResource(id = R.drawable.pagination_2),
                 contentDescription = null,
                 Modifier.align(Alignment.CenterHorizontally)
             )
@@ -71,7 +74,7 @@ fun OnBoardingPage2() {
 
         Box() {
             Image(
-                painter = painterResource(id = R.drawable.vector_onboarding),
+                painter = painterResource(id = R.drawable.onboarding_vector),
                 contentDescription = null,
                 modifier = Modifier.fillMaxWidth(),
                 alignment = Alignment.BottomCenter
@@ -80,12 +83,12 @@ fun OnBoardingPage2() {
             RedButton(
                 onClick = {},
                 text = stringResource(R.string.next_button_text),
-                buttonAlignementModifier = Modifier.align(Alignment.Center)
+                modifier = Modifier.align(Alignment.Center)
             )
             WhiteButton(
                 onClick = {},
                 text = stringResource(R.string.back_button_text),
-                buttonAlignementModifier = Modifier.align(Alignment.BottomCenter)
+                modifier = Modifier.align(Alignment.BottomCenter)
             )
 
         }

@@ -25,6 +25,7 @@ import androidx.navigation.NavController
 import com.example.sudoku.R
 import com.example.sudoku.navigation.Screen
 import com.example.sudoku.ui.composables.RedButton
+import com.example.sudoku.ui.theme.SudokuFontFamily
 
 
 @Composable
@@ -60,29 +61,28 @@ fun OnBoardingPage1(
             Text(
                 text = stringResource(R.string.onboarding1_title),
                 textAlign = TextAlign.Center,
+                fontFamily = SudokuFontFamily,
                 fontSize = 26.sp,
                 modifier = Modifier.padding(10.dp)
             )
             Image(
-                painter = painterResource(id = R.drawable.carrousel_levels),
+                painter = painterResource(id = R.drawable.onboarding1_image),
                 contentDescription = null,
             )
-
             Text(
                 text = stringResource(R.string.onboarding1_text),
                 textAlign = TextAlign.Center,
+                fontFamily = SudokuFontFamily,
                 fontSize = 18.sp,
                 modifier = Modifier.padding(10.dp)
-
             )
 
             Image(
-                painter = painterResource(id = R.drawable.pagination1),
+                painter = painterResource(id = R.drawable.pagination_1),
                 contentDescription = null,
                 Modifier.align(Alignment.CenterHorizontally)
             )
         }
-
         Box(
 
             Modifier
@@ -90,7 +90,7 @@ fun OnBoardingPage1(
                 .align(Alignment.CenterHorizontally)
         ) {
             Image(
-                painter = painterResource(id = R.drawable.vector_onboarding),
+                painter = painterResource(id = R.drawable.onboarding_vector),
                 contentDescription = null,
                 modifier = Modifier
                     .fillMaxWidth()
@@ -99,9 +99,9 @@ fun OnBoardingPage1(
 
 
             RedButton(
-                {},
+                { },
                 text = stringResource(R.string.next_button_text),
-                buttonAlignementModifier = Modifier.align(Alignment.BottomCenter)
+                modifier = Modifier.align(Alignment.BottomCenter)
             )
 
 

@@ -12,14 +12,9 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.rotate
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.zIndex
 import com.example.sudoku.R
 
 
@@ -55,7 +50,7 @@ fun EggsIconsRow(){
         verticalAlignment = Alignment.CenterVertically
     ) {
         Image(
-            painter = painterResource(id = R.drawable.loading),
+            painter = painterResource(id = R.drawable.loading_eggs),
             contentDescription = null,
             Modifier.padding(40.dp)
         )
@@ -64,11 +59,10 @@ fun EggsIconsRow(){
 
 @Composable
 fun BackGround(){
-    val vector = ImageVector.vectorResource(R.drawable.vector__yellow)
     Image(
-        painter = rememberVectorPainter(image = vector),
+        painter = painterResource(R.drawable.vector_splash1),
         contentDescription = null,
         contentScale = ContentScale.Crop,
-        modifier = Modifier.fillMaxSize().rotate(180f).zIndex(0f)
+        modifier = Modifier.fillMaxSize()
     )
 }

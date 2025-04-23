@@ -48,8 +48,4 @@ class RegisterVM @Inject constructor(
             _messageStateFlow.value = "Please enter all fields"
         }
     }
-
-
-
-
 }

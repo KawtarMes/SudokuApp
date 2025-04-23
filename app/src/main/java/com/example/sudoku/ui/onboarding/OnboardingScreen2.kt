@@ -14,6 +14,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -31,14 +32,13 @@ fun OnboardingScreen2(navController: NavController, viewmodel: OnboardingVM) {
 
     OnBoardingContent2(
         onNext = { viewmodel.navigateToOnBoarding3() },
-        onBack = {
-        }
+        onBack = { navController.popBackStack() }
     )
 
     LaunchedEffect(Unit) {
         viewmodel.navigateToNextScreen.collect { nextScreen ->
             navController.navigate(nextScreen) {
-                popUpTo(Screen.Onboarding.route) { inclusive = true }
+                popUpTo(Screen.Onboarding2.route) { inclusive = false }
             }
         }
     }
@@ -59,21 +59,22 @@ fun OnBoardingContent2(
         verticalArrangement = Arrangement.SpaceBetween
     ) {
         Column(
-            modifier = Modifier
-                .weight(2f)
-                .fillMaxWidth(),
-            verticalArrangement = Arrangement.SpaceEvenly
         ) {
+
             Text(
                 text = stringResource(R.string.onboarding2_title),
                 textAlign = TextAlign.Center,
                 fontFamily = SudokuFontFamily,
                 fontSize = 26.sp,
-                modifier = Modifier.padding(10.dp)
+                modifier = Modifier
+                    .padding(vertical = 50.dp)
+                    .align(Alignment.CenterHorizontally)
             )
             Image(
                 painter = painterResource(id = R.drawable.onboarding2_image),
                 contentDescription = null,
+                contentScale = ContentScale.Crop,
+                modifier = Modifier.fillMaxWidth()
             )
 
             Text(
@@ -81,7 +82,9 @@ fun OnBoardingContent2(
                 textAlign = TextAlign.Center,
                 fontFamily = SudokuFontFamily,
                 fontSize = 18.sp,
-                modifier = Modifier.padding(10.dp)
+                modifier = Modifier
+                    .padding(vertical = 40.dp)
+                    .align(Alignment.CenterHorizontally)
 
             )
 
@@ -99,6 +102,7 @@ fun OnBoardingContent2(
             Image(
                 painter = painterResource(id = R.drawable.onboarding_vector),
                 contentDescription = null,
+                contentScale = ContentScale.Crop,
                 modifier = Modifier.fillMaxWidth(),
                 alignment = Alignment.BottomCenter
             )
@@ -114,6 +118,80 @@ fun OnBoardingContent2(
                 modifier = Modifier.align(Alignment.BottomCenter)
             )
 
+        }
+        }
+
+
+}
+
+//@Preview
+@Composable
+fun PreviewONB2() {
+    Column(
+        Modifier
+            .fillMaxSize()
+            .background(Color.White),
+        verticalArrangement = Arrangement.SpaceBetween
+    ) {
+        Column(
+            modifier = Modifier,
+        ) {
+            Text(
+                text = stringResource(R.string.onboarding2_title),
+                textAlign = TextAlign.Center,
+                fontFamily = SudokuFontFamily,
+                fontSize = 26.sp,
+                modifier = Modifier
+                    .padding(vertical = 50.dp)
+                    .align(Alignment.CenterHorizontally)
+            )
+            Image(
+                painter = painterResource(id = R.drawable.onboarding2_image),
+                contentDescription = null,
+                Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 30.dp)
+            )
+
+            Text(
+                text = stringResource(R.string.onboarding2_text),
+                textAlign = TextAlign.Center,
+                fontFamily = SudokuFontFamily,
+                fontSize = 18.sp,
+                modifier = Modifier
+                    .padding(vertical = 30.dp)
+                    .align(Alignment.CenterHorizontally)
+
+            )
+
+            Image(
+                painter = painterResource(id = R.drawable.pagination_2),
+                contentDescription = null,
+                Modifier
+                    .align(Alignment.CenterHorizontally)
+                    .padding(vertical = 30.dp)
+            )
+        }
+        Box(Modifier.fillMaxWidth()) {
+            Image(
+                painter = painterResource(id = R.drawable.onboarding_vector),
+                contentDescription = null,
+                modifier = Modifier.fillMaxWidth(),
+                alignment = Alignment.BottomCenter
+            )
+
+            Column {
+                RedButton(
+                    onClick = { /*onNext*/ },
+                    text = stringResource(R.string.next_button_text),
+                    modifier = Modifier.align(Alignment.CenterHorizontally)
+                )
+                WhiteButton(
+                    onClick = {/* onBack */ },
+                    text = stringResource(R.string.back_button_text),
+                    modifier = Modifier.align(Alignment.CenterHorizontally)
+                )
+            }
         }
     }
 }

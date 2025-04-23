@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Text
@@ -46,6 +47,7 @@ fun WelcomeContent() {
             contentDescription = null,
             contentScale = ContentScale.Crop,
             modifier = Modifier
+                .fillMaxWidth()
                 .zIndex(0f)
                 .background(Color.White)
                 .align(Alignment.BottomCenter)
@@ -55,6 +57,7 @@ fun WelcomeContent() {
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.SpaceAround
         ) {
+            Spacer(Modifier.size(80.dp))
             Text(
                 text = stringResource(R.string.welcome_title),
                 textAlign = TextAlign.Center,
@@ -68,7 +71,7 @@ fun WelcomeContent() {
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
             )
-            Spacer(Modifier.size(40.dp))
+            Spacer(Modifier.size(80.dp))
             Image(
                 painter = painterResource(R.drawable.logo_owl),
                 contentDescription = null,

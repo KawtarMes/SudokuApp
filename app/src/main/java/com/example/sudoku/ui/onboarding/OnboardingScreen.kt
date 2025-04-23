@@ -14,6 +14,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -62,19 +63,24 @@ fun OnBoardingContent1(
                 textAlign = TextAlign.Center,
                 fontFamily = SudokuFontFamily,
                 fontSize = 26.sp,
-                modifier = Modifier.padding(10.dp)
+                modifier = Modifier
+                    .padding(10.dp)
+                    .align(Alignment.CenterHorizontally)
             )
             Image(
                 painter = painterResource(id = R.drawable.onboarding1_image),
                 contentDescription = null,
-                Modifier.fillMaxWidth()
+                contentScale = ContentScale.Crop,
+                modifier = Modifier.fillMaxWidth()
             )
             Text(
                 text = stringResource(R.string.onboarding1_text),
                 textAlign = TextAlign.Center,
                 fontFamily = SudokuFontFamily,
                 fontSize = 18.sp,
-                modifier = Modifier.padding(10.dp)
+                modifier = Modifier
+                    .padding(10.dp)
+                    .align(Alignment.CenterHorizontally)
             )
 
             Image(
@@ -91,6 +97,7 @@ fun OnBoardingContent1(
             Image(
                 painter = painterResource(id = R.drawable.onboarding_vector),
                 contentDescription = null,
+                contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .fillMaxWidth()
             )

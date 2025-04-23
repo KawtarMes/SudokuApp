@@ -31,6 +31,7 @@ import androidx.navigation.NavController
 import com.example.sudoku.R
 import com.example.sudoku.ui.composables.RedButton
 import com.example.sudoku.ui.composables.YellowTextField
+import com.example.sudoku.ui.theme.SudokuFontFamily
 
 
 @Composable
@@ -107,12 +108,13 @@ fun RegisteContent(
                 modifier = Modifier.size(70.dp)
             )
             Text(
-                text = stringResource(R.string.register_name)
+                text = stringResource(R.string.register_name),
+                fontFamily = SudokuFontFamily
             )
 
-            YellowTextField(username, onUsernameChange, stringResource(R.string.username))
-            YellowTextField(email, onEmailChange, stringResource(R.string.email))
-            YellowTextField(password, onPasswordChange, stringResource(R.string.password))
+            YellowTextField(username, onUsernameChange, stringResource(R.string.username), false)
+            YellowTextField(email, onEmailChange, stringResource(R.string.email), false)
+            YellowTextField(password, onPasswordChange, stringResource(R.string.password), true)
 
             RedButton(
                 onClick,

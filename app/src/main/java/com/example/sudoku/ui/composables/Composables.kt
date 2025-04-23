@@ -5,6 +5,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
@@ -14,6 +15,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -90,7 +94,8 @@ fun WhiteButton(
 fun YellowTextField(
     value: String,
     onValueChange: (String) -> Unit,
-    placeholder: String
+    placeholder: String,
+    isPasswordField: Boolean
 ) {
     OutlinedTextField(
         value = value,
@@ -101,6 +106,18 @@ fun YellowTextField(
                 fontFamily = SudokuFontFamily,
             )
         },
+
+        keyboardOptions = if (isPasswordField) {
+            KeyboardOptions(
+                keyboardType = KeyboardType.Password
+            )
+        } else {
+            KeyboardOptions(
+                keyboardType = KeyboardType.Unspecified
+            )
+        },
+        visualTransformation = if (isPasswordField) PasswordVisualTransformation()
+        else VisualTransformation.None,
         colors = OutlinedTextFieldDefaults.colors(
             unfocusedContainerColor = Color.White,
             focusedTextColor = ShOrange,

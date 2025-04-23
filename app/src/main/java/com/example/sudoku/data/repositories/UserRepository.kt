@@ -19,7 +19,7 @@ class UserRepository @Inject constructor(
     }
 
     suspend fun signUpNewUser(email: String, password: String, username: String): AuthResult {
-        return try {
+        try {
             val response = supabase.auth.signUpWith(Email) {
                 this.email = email
                 this.password = password
@@ -30,14 +30,13 @@ class UserRepository @Inject constructor(
             if (session != null && response != null) {
                 myPrefs.userId = session.user?.id ?: ""
                 myPrefs.token = session.accessToken
-                Log.i("Register", "Register Success")
-                AuthResult.Success
-            } else {
-                AuthResult.Failure("Failed to register.")
-            }
+            }//dans le else je suis quand meme en succes le user se crée en bdd
+
+
+            return AuthResult.Success
         } catch (e: Exception) {
             Log.e("Register", "RegisterException ${e.message}")
-            AuthResult.Failure(e.message ?: "Unknown error")
+            return AuthResult.Failure(e.message ?: " error")
         }
     }
 

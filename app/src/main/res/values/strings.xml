@@ -26,5 +26,12 @@
     <string name="lets_play_button_text">Let\'s Play!</string>
     <string name="back_button_text">Back </string>
 
+    <string name="eggshell_lvl">Eggshell</string>
+    <string name="cracked_lvl">Cracked</string>
+    <string name="chick_lvl">Chick</string>
+    <string name="fledgeling_lvl">Fledgeling</string>
+    <string name="wise_owl_lvl">Wise Owl</string>
+    <string name="title_level">Choose Your Challenge Level:</string>
+
 
 </resources>

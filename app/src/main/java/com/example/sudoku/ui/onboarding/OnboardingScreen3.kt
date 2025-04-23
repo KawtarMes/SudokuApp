@@ -14,6 +14,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -33,7 +34,7 @@ fun OnboardingScreen3(navController: NavController, viewmodel: OnboardingVM) {
 
     OnBoardingContent3(
         onNext = { viewmodel.navigateToWelcomeScreen() },
-        onBack = {}
+        onBack = { navController.popBackStack() }
     )
 
     LaunchedEffect(Unit) {
@@ -56,7 +57,7 @@ fun OnBoardingContent3(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.White),
-        verticalArrangement = Arrangement.SpaceBetween
+
     ) {
 
         Column(
@@ -68,11 +69,15 @@ fun OnBoardingContent3(
                 textAlign = TextAlign.Center,
                 fontSize = 26.sp,
                 fontFamily = SudokuFontFamily,
-                modifier = Modifier.padding(10.dp)
+                modifier = Modifier
+                    .padding(50.dp)
+                    .align(Alignment.CenterHorizontally)
             )
             Image(
                 painter = painterResource(id = R.drawable.onboarding3_image),
                 contentDescription = null,
+                contentScale = ContentScale.Crop,
+                modifier = Modifier.fillMaxWidth()
             )
 
             Text(
@@ -80,7 +85,9 @@ fun OnBoardingContent3(
                 textAlign = TextAlign.Center,
                 fontFamily = SudokuFontFamily,
                 fontSize = 18.sp,
-                modifier = Modifier.padding(10.dp)
+                modifier = Modifier
+                    .padding(10.dp)
+                    .align(Alignment.CenterHorizontally)
             )
 
             Image(
@@ -94,6 +101,7 @@ fun OnBoardingContent3(
                 painter = painterResource(id = R.drawable.onboarding_vector),
                 contentDescription = null,
                 modifier = Modifier.fillMaxWidth(),
+                contentScale = ContentScale.Crop,
                 alignment = Alignment.BottomCenter
             )
 

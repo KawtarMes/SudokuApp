@@ -114,7 +114,8 @@ fun LoginContent(
                 YellowTextField(
                     email,
                     onEmailChange,
-                    stringResource(R.string.email)
+                    stringResource(R.string.email),
+                    false
                 )
 
                 Spacer(Modifier.size(30.dp))
@@ -122,7 +123,8 @@ fun LoginContent(
                 YellowTextField(
                     password,
                     onPasswordChange,
-                    stringResource(R.string.password)
+                    stringResource(R.string.password),
+                    true
                 )
 
                 Spacer(Modifier.size(20.dp))

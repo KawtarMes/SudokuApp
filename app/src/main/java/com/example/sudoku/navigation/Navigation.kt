@@ -37,7 +37,7 @@ sealed class Screen(val route : String){
 fun MyNavigation(){
     val navController = rememberNavController()
 
-    NavHost(navController = navController, startDestination = Screen.Onboarding.route)
+    NavHost(navController = navController, startDestination = Screen.Splash.route)
     {
         composable(Screen.Splash.route){
             val splashVM: SplashVM = hiltViewModel()

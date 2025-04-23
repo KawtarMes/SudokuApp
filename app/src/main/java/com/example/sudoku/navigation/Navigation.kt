@@ -5,6 +5,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.sudoku.ui.level.LevelScreen
+import com.example.sudoku.ui.level.LevelVM
 import com.example.sudoku.ui.login.LoginScreen
 import com.example.sudoku.ui.login.LoginVM
 import com.example.sudoku.ui.main.MainScreen
@@ -84,8 +86,8 @@ fun MyNavigation(){
             // ResultScreen(navController = navController, viewModel = resultVM)
         }
         composable(Screen.Level.route){
-            //val levelVM: LevelVM = hiltViewModel()
-            // LevelScreen(navController = navController, viewModel = levelVM)
+            val levelVM: LevelVM = hiltViewModel()
+            LevelScreen(navController = navController, viewModel = levelVM)
         }
     }
 

@@ -48,6 +48,7 @@ dependencies {
     val nav_version = "2.8.9"
     val ktorVersion = "3.1.2"
 
+    implementation("androidx.graphics:graphics-shapes:1.0.1")
 
     implementation(platform("io.github.jan-tennert.supabase:bom:3.1.4"))
     implementation("io.github.jan-tennert.supabase:postgrest-kt")

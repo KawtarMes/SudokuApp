@@ -29,8 +29,6 @@ import com.example.sudoku.ui.theme.SudokuFontFamily
 
 @Composable
 fun OnboardingScreen3(navController: NavController, viewmodel: OnboardingVM) {
-//navto
-//popstack
 
     OnBoardingContent3(
         onNext = { viewmodel.navigateToWelcomeScreen() },

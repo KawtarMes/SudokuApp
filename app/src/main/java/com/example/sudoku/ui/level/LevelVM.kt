@@ -9,4 +9,9 @@ import javax.inject.Inject
 class LevelVM @Inject constructor(
 
 ) : ViewModel() {
+
+// choisir niveau
+    // naviguer et envoyer le string represtant le level choisi
+
+
 }

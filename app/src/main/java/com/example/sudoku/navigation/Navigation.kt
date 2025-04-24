@@ -2,9 +2,13 @@ package com.example.sudoku.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
+import com.example.sudoku.ui.game.GameScreen
+import com.example.sudoku.ui.game.GameVM
 import com.example.sudoku.ui.level.LevelScreen
 import com.example.sudoku.ui.level.LevelVM
 import com.example.sudoku.ui.login.LoginScreen
@@ -29,6 +33,7 @@ sealed class Screen(val route : String){
     object Onboarding2 : Screen("onboarding2")
     object Onboarding3 : Screen("onboarding3")
     object Level : Screen("level")
+    object Game : Screen("game")
     object Register : Screen("register")
     object Login: Screen("login")
     object Result: Screen("result")
@@ -73,7 +78,7 @@ fun MyNavigation(){
 
         composable(Screen.Main.route){
             val mainVM: MainVM = hiltViewModel()
-            MainScreen(navController = navController, viewModel = mainVM)
+            MainScreen(navController = navController, viewmodel = mainVM)
         }
 
         composable(Screen.Login.route){
@@ -88,6 +93,28 @@ fun MyNavigation(){
         composable(Screen.Level.route){
             val levelVM: LevelVM = hiltViewModel()
             LevelScreen(navController = navController, viewModel = levelVM)
+        }
+
+        composable(Screen.Level.route) {
+            val levelVM: LevelVM = hiltViewModel()
+            LevelScreen(navController = navController, viewModel = levelVM)
+        }
+
+        composable(
+            Screen.Game.route + "/{gridLevel}",
+            arguments = listOf(
+                navArgument(name = "gridLevel") {
+                    type = NavType.StringType
+                }
+            )
+        ) { navBackStackEntry ->
+            val gameVM: GameVM = hiltViewModel()
+
+            navBackStackEntry.arguments?.getString("gridLevel")?.let {
+                val gridLevel = it
+                GameScreen(navController = navController, viewModel = gameVM, gridLevel = gridLevel)
+            }
+
         }
     }
 

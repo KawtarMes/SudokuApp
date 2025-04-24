@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -19,24 +20,34 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
 import androidx.navigation.NavController
 import com.example.sudoku.R
+import com.example.sudoku.navigation.Screen
 import com.example.sudoku.ui.composables.RedButton
 import com.example.sudoku.ui.theme.SudokuFontFamily
 
 @Composable
-fun MainScreen(navController:NavController, viewModel: MainVM) {
+fun MainScreen(navController: NavController, viewmodel: MainVM) {
 
-    WelcomeContent()
+    WelcomeContent(onClick = { viewmodel.navigateToLevelScreen() })
+
+    LaunchedEffect(Unit) {
+        viewmodel.navigateToNextScreen.collect { nextScreen ->
+            navController.navigate(nextScreen) {
+                popUpTo(Screen.Onboarding3.route) { inclusive = false }
+            }
+        }
+    }
 }
 
-@Preview
+//@Preview
 @Composable
-fun WelcomeContent() {
+fun WelcomeContent(
+    onClick: () -> Unit
+) {
     Box(
         Modifier
             .fillMaxSize()
@@ -91,7 +102,7 @@ fun WelcomeContent() {
         }
 
         RedButton(
-            {},
+            onClick = onClick,
             text = stringResource(R.string.lets_start_button_text),
             modifier = Modifier.align(Alignment.BottomCenter)
         )

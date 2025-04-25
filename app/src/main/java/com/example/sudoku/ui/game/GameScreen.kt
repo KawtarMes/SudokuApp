@@ -1,8 +1,10 @@
 package com.example.sudoku.ui.game
 
+import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -17,40 +19,64 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.itemsIndexed
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.sudoku.R
 import com.example.sudoku.ui.composables.CloseButton
 import com.example.sudoku.ui.composables.HintButton
 import com.example.sudoku.ui.composables.MenuButton
+import com.example.sudoku.ui.composables.NumberKeyBoard
+import com.example.sudoku.ui.composables.RedButton
+import com.example.sudoku.ui.theme.ShGray
 import com.example.sudoku.ui.theme.SudokuFontFamily
 import com.example.sudoku.ui.theme.SudokuGridFontFamily
 
 @Composable
 fun GameScreen(navController: NavController, viewModel: GameVM, gridLevel: String) {
 
-    viewModel.getAllGrid()
+    var numberSelected by remember { mutableStateOf(0) }
+    var isCellSelected by remember { mutableStateOf(false) }
 
-    GameContent()
+    //viewModel.getAllGrid()
+
+    GameContent(
+        numberSelected = numberSelected,
+        onNumberSelected = { numberSelected = it },
+        isCellSelected = isCellSelected
+
+    )
+    Log.i("Number", "number selected : $numberSelected ")
+
 }
 
 @Preview
 @Composable
-fun GameConntentPreview() {
-    GameContent()
+fun GameContentPreview() {
+    GameContent(
+        numberSelected = 3,
+        onNumberSelected = {},
+        isCellSelected = false
+    )
 }
 
 
 //@Preview
 @Composable
 fun SudokuCell(
-    number: Int
+    number: Int,
+    isSelected: Boolean
 ) {
     Box(
         Modifier
@@ -60,6 +86,10 @@ fun SudokuCell(
                 border = BorderStroke(0.3.dp, Color.Black)
             )
             .size(10.dp)
+            .clickable {
+                isSelected != isSelected
+
+            }
     ) {
         if (number != 0) {
             Text(
@@ -68,7 +98,7 @@ fun SudokuCell(
                 fontFamily = SudokuGridFontFamily,
                 modifier = Modifier.align(Alignment.Center)
             )
-        } else {
+        } else if (number == 0 && isSelected == true) {
             //mettre le chiffre clické en bas
 
         }
@@ -76,12 +106,16 @@ fun SudokuCell(
 }
 
 @Composable
-fun GameContent() {
+fun GameContent(
+    numberSelected: Int,
+    onNumberSelected: (Int) -> Unit,
+    isCellSelected: Boolean
+) {
     Column(
         modifier = Modifier
             .padding(10.dp)
             .fillMaxSize()
-            .background(Color.White),
+            .background(ShGray),
         horizontalAlignment = Alignment.CenterHorizontally,
 
         ) {
@@ -101,33 +135,56 @@ fun GameContent() {
         TopRow()
 
         Text(
-            text = "Tap a box and select a number from below\n" +
-                    "to fill the Sudoku board.",
+            text = stringResource(R.string.game_screen_title),
+            textAlign = TextAlign.Center,
             fontFamily = SudokuFontFamily,
             fontSize = 24.sp,
-            modifier = Modifier.padding(vertical = 20.dp)
+            modifier = Modifier
+                .padding(10.dp)
+                .align(Alignment.CenterHorizontally)
 
         )
 
         LazyVerticalGrid(
             columns = GridCells.Fixed(9),
             modifier =
-                Modifier
+                Modifier.padding(20.dp)
 
         ) {
             grid.forEach { gridLine ->
                 itemsIndexed(gridLine.toTypedArray()) { index, item ->
-                    SudokuCell(item)
+
+                    SudokuCell(item, isCellSelected)
+
+                    if (item == 0 && numberSelected != 0 && numberSelected != 10) {
+                        SudokuCell(numberSelected, isCellSelected)
+
+                    } else if (numberSelected == 10) {
+                        SudokuCell(0, isCellSelected)
+                    } else {
+                        SudokuCell(item, isCellSelected)
+                    }
+
                 }
+
             }
 
         }
 
+        NumberKeyBoard(
+            numberSelected = numberSelected,
+            onNumberSelected = onNumberSelected
+        )
 
+        RedButton(
+            onClick = {},
+            modifier = Modifier.align(Alignment.CenterHorizontally),
+            text = stringResource(R.string.solve_button_text)
+        )
     }
 }
 
-@Preview
+
 @Composable
 fun TopRow() {
     Row(
@@ -146,7 +203,6 @@ fun TopRow() {
                 fontFamily = SudokuFontFamily,
                 fontWeight = FontWeight.Normal,
                 fontSize = 16.sp
-
             )
         }
 

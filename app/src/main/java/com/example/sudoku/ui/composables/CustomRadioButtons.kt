@@ -92,6 +92,4 @@ fun CustomRBtn(
             CustomRBtnUnselected()
         }
     }
-
-
 }

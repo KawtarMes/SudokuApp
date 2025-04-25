@@ -38,5 +38,9 @@
     <string name="hint_button_desc">Hint button</string>
     <string name="close_button_desc">Close button</string>
 
+    <string name="solve_button_text">Solve</string>
+    <string name="game_screen_title">Tap a box and select a number from below to fill the Sudoku board.</string>
+    <string name="cancel_icon_desc">Cancel number </string>
+
 
 </resources>

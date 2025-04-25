@@ -25,6 +25,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.sudoku.R
@@ -126,9 +127,16 @@ fun RegisteContent(
 }
 
 
+@Preview
 @Composable
 fun RegisterBackground(){
     Box(Modifier.fillMaxSize()) {
+        Image(
+            painter = painterResource(R.drawable.pattern),
+            contentDescription = null,
+            contentScale = ContentScale.Crop,
+            modifier = Modifier.fillMaxSize()
+        )
         Image(
             painter = painterResource(R.drawable.vector_enter_name),
             contentDescription = null,

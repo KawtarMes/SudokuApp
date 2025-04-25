@@ -92,6 +92,12 @@ fun LoginContent(
             contentScale = ContentScale.Crop,
             modifier = Modifier.fillMaxWidth()
         )
+        Image(
+            painter = painterResource(R.drawable.pattern),
+            contentDescription = null,
+            contentScale = ContentScale.Crop,
+            modifier = Modifier.fillMaxSize()
+        )
 
         Column(
             Modifier.fillMaxSize(),
@@ -152,7 +158,7 @@ fun LoginContent(
 
 @Preview
 @Composable
-fun Previewfunc() {
+fun LoginContentPreview() {
     LoginContent("", "", { "" }, { "" }, {}) { }
 }
 

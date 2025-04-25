@@ -36,7 +36,7 @@ class LoginVM @Inject constructor(
                     when (val result = userRepository.signIn(email, password)) {
 
                         is UserRepository.AuthResult.Success -> {
-                            _messageStateFlow.value = "Successfully signed in"
+                            //_messageStateFlow.value = "Successfully signed in"
                             _navigateToNextScreen.emit(Screen.Main.route)
                         }
 

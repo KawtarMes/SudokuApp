@@ -38,3 +38,7 @@ val Typography = Typography(
 val SudokuFontFamily = FontFamily(
     Font(R.font.summary_notes)
 )
+
+val SudokuGridFontFamily = FontFamily(
+    Font(R.font.josefin_sans)
+)

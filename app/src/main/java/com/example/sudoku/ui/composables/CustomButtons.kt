@@ -112,5 +112,70 @@ fun YellowButton(
 }
 
 
+@Composable
+fun CloseButton(
+    onClick: () -> Unit,
+    modifier: Modifier
+) {
+    Box(
+        modifier = modifier
+            .clickable {
+                onClick()
+            }
+            .padding(5.dp)
+    ) {
+        Image(
+            painter = painterResource(R.drawable.close_button),
+            contentDescription = stringResource(R.string.close_button_desc),
+        )
+    }
+}
+
+
+@Composable
+fun MenuButton(
+    onClick: () -> Unit,
+    modifier: Modifier
+
+) {
+    Box(
+        modifier = modifier
+            .clickable {
+                onClick()
+            }
+            .padding(5.dp)
+    ) {
+        Image(
+            painter = painterResource(R.drawable.menu_button),
+            contentDescription = stringResource(R.string.menu_button_desc),
+        )
+    }
+}
+
+
+@Composable
+fun HintButton(
+    onClick: () -> Unit,
+    modifier: Modifier
+) {
+    Box(
+        modifier = modifier
+            .clickable {
+                onClick()
+            }
+            .padding(5.dp)
+    ) {
+        Image(
+            painter = painterResource(R.drawable.hint_button),
+            contentDescription = stringResource(R.string.hint_button_desc),
+        )
+    }
+}
+
+
+
+
+
+
 
 

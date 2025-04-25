@@ -34,4 +34,9 @@
     <string name="title_level">Choose Your Challenge Level:</string>
 
 
+    <string name="menu_button_desc">Menu button</string>
+    <string name="hint_button_desc">Hint button</string>
+    <string name="close_button_desc">Close button</string>
+
+
 </resources>

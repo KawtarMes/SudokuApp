@@ -33,6 +33,9 @@ class UserRepository @Inject constructor(
             }//dans le else je suis quand meme en succes le user se crée en bdd
 
 
+            //fetch profil si auth, pour avoir username
+
+
             return AuthResult.Success
         } catch (e: Exception) {
             Log.e("Register", "RegisterException ${e.message}")

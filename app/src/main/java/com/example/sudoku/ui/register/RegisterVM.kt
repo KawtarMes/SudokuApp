@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.sudoku.data.repositories.UserRepository
 import com.example.sudoku.navigation.Screen
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -30,7 +31,7 @@ class RegisterVM @Inject constructor(
 
         if (email.isNotEmpty() && password.isNotEmpty() && username.isNotEmpty()) {
             if (email.matches(regex)) {
-                viewModelScope.launch {
+                viewModelScope.launch(Dispatchers.IO) {
                     when (val result = userRepository.signUpNewUser(email, password, username)) {
                         is UserRepository.AuthResult.Success -> {
                             _messageStateFlow.value = "Successfully signed up"

@@ -36,6 +36,7 @@ import com.example.sudoku.ui.composables.SudokuCell
 import com.example.sudoku.ui.theme.ShGray
 import com.example.sudoku.ui.theme.SudokuFontFamily
 
+
 @Composable
 fun GameScreen(navController: NavController, viewModel: GameVM, gridLevel: String) {
 
@@ -60,24 +61,21 @@ fun GameScreen(navController: NavController, viewModel: GameVM, gridLevel: Strin
     //viewModel.getAllGrid()
 
     GameContent(
+        grid = grid,
         numberSelected = numberSelected,
+        cellSelected = cellSelected,
+        onCellClicked = { cellSelected = it },
         onNumberSelected = { selectedNumber ->
-            numberSelected = selectedNumber // nombre tapé sur les chiffres enbas
-            cellSelected?.let { (row, col) -> // si il ya une case selected
-                if (grid[row][col] == 0 || grid[row][col] != selectedNumber) { // case vide ou case diff du chiffre actuel , on peut changer
-                    val newGrid = grid.map { it.copyOf() }
-                        .toTypedArray() // recreer une copuy  pour la mise a jour du state grid
+            numberSelected = selectedNumber
+            cellSelected?.let { (row, col) -> //si il ya une case selected
+                if (grid[row][col] == 0 || grid[row][col] != selectedNumber) {  // case vide ou case diff du chiffre actuel , on peut change
+                    val newGrid =
+                        grid.map { it.copyOf() }.toTypedArray() // copy de la grille quia a changeé
                     newGrid[row][col] = if (selectedNumber == 10) 0 else selectedNumber
                     grid = newGrid
                 }
             }
         },
-        isSelected = isSelected,
-        onCellClicked = {
-            cellSelected = it
-        }, // quand je click je recupereune position avec les deux index
-
-        grid = grid
 
     )
 
@@ -115,7 +113,7 @@ fun GameContentPreview() {
 fun GameContent(
     numberSelected: Int,
     onNumberSelected: (Int) -> Unit,
-    isSelected: Boolean,
+    cellSelected: Pair<Int, Int>?,
     onCellClicked: (Pair<Int, Int>?) -> Unit,
     grid: Array<IntArray>
 
@@ -153,24 +151,14 @@ fun GameContent(
 
                 itemsIndexed(row.toTypedArray()) { colIndex, item ->
 
-                    if (item == 0 && numberSelected != 0) {
-                        // case vide, et Selectionner on recupere les 2 index
-                        // et on remplie avec les numberselected sur les chiffre enbas
-                        SudokuCell(
-                            numberSelected,
-                            isSelected = isSelected,
-                            onClick = { onCellClicked(Pair(rowIndex, colIndex)) }
-                        )
+                    // case vide, et Selectionner on recupere les 2 index
+                    // et on remplie avec les numberselected sur les chiffre enbas
+                    SudokuCell(
+                        number = item,
+                        isSelected = cellSelected == Pair(rowIndex, colIndex),
+                        onClick = { onCellClicked(Pair(rowIndex, colIndex)) }
+                    )
 
-                    } else {
-                        // case preremplie , juste affichage
-                        SudokuCell(
-                            item,// numero deja present dans le tableau
-                            isSelected = isSelected,
-                            onClick = {}
-
-                        )
-                    }
                 }
             }
         }

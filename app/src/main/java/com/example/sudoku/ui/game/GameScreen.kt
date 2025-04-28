@@ -52,10 +52,7 @@ fun GameScreen(navController: NavController, viewModel: GameVM, gridLevel: Strin
         intArrayOf(0, 0, 0, 0, 8, 0, 0, 7, 9)
     )
     var numberSelected by remember { mutableStateOf(0) }
-    var isSelected by remember { mutableStateOf(false) }
-
     var grid by remember { mutableStateOf(gridInitial) }
-
     var cellSelected: Pair<Int, Int>? by remember { mutableStateOf(null) }
 
     //viewModel.getAllGrid()
@@ -155,8 +152,18 @@ fun GameContent(
                     // et on remplie avec les numberselected sur les chiffre enbas
                     SudokuCell(
                         number = item,
-                        isSelected = cellSelected == Pair(rowIndex, colIndex),
-                        onClick = { onCellClicked(Pair(rowIndex, colIndex)) }
+                        isSelected = cellSelected == Pair(
+                            rowIndex,
+                            colIndex
+                        ), // vrai que à la position selectionné
+                        onClick = {
+                            onCellClicked(
+                                Pair(
+                                    rowIndex,
+                                    colIndex
+                                )
+                            )
+                        }// changement de la position
                     )
 
                 }

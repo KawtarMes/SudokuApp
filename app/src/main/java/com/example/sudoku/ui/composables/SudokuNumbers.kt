@@ -31,7 +31,7 @@ import com.example.sudoku.ui.theme.SudokuGridFontFamily
 fun NumberButton(
     number: Int,
     numberSelected: Int,
-    onNumberSelected: (Int) -> Unit
+    onNumberSelected: (Int) -> Unit,
 ) {
     Column(
 
@@ -45,7 +45,7 @@ fun NumberButton(
                 .selectable(
                     selected = numberSelected == number,
                     onClick = { onNumberSelected(number) },
-                    role = Role.Button
+                    role = Role.Button,
                 )
 
         ) {
@@ -74,7 +74,7 @@ fun NumberButton(
 @Composable
 fun NumberKeyBoard(
     numberSelected: Int,
-    onNumberSelected: (Int) -> Unit
+    onNumberSelected: (Int) -> Unit,
 ) {
 
     Row(
@@ -85,15 +85,14 @@ fun NumberKeyBoard(
             modifier =
                 Modifier
                     .padding(20.dp)
-                    .selectableGroup()
-
-
+                    .selectableGroup(),
         ) {
             items(10) { number ->
                 NumberButton(
                     number = number + 1,
                     numberSelected = numberSelected + 1,
-                    onNumberSelected = { onNumberSelected(number + 1) }
+                    onNumberSelected = { onNumberSelected(number + 1) },
+
                 )
             }
         }

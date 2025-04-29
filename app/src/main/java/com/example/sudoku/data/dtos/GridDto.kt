@@ -8,7 +8,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 class GridStart(
     @SerialName("grid_start")
-    val gridStart: Array<Array<Int>>
+    val gridStart: List<List<Int>>
 )
 
 @Serializable
@@ -24,8 +24,8 @@ data class GridDto(
     @SerialName("level")
     val level: Level,
     @SerialName("grid_start")
-    val gridStart: GridStart,
+    val gridStart: List<List<Int>>,
     @SerialName("grid_solution")
-    val gridSolution: GridSolution,
+    val gridSolution: List<List<Int>>,
 )
 

@@ -13,6 +13,8 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.itemsIndexed
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -40,6 +42,14 @@ import com.example.sudoku.ui.theme.SudokuFontFamily
 @Composable
 fun GameScreen(navController: NavController, viewModel: GameVM, gridLevel: String) {
 
+    LaunchedEffect(Unit) {
+        viewModel.getGridByLevel(gridLevel)
+
+    }
+
+    val gameGrid = viewModel.gridMutableStateFlow.collectAsState().value
+
+
     val gridInitial: Array<IntArray> = arrayOf(
         intArrayOf(5, 3, 0, 0, 7, 0, 0, 0, 0),
         intArrayOf(6, 0, 0, 1, 9, 5, 0, 0, 0),
@@ -51,11 +61,24 @@ fun GameScreen(navController: NavController, viewModel: GameVM, gridLevel: Strin
         intArrayOf(0, 0, 0, 4, 1, 9, 0, 0, 5),
         intArrayOf(0, 0, 0, 0, 8, 0, 0, 7, 9)
     )
+    val gridFinal: Array<IntArray> = arrayOf(
+        intArrayOf(5, 3, 4, 6, 7, 8, 9, 1, 2),
+        intArrayOf(6, 7, 2, 1, 9, 5, 3, 4, 8),
+        intArrayOf(1, 9, 8, 3, 4, 2, 5, 6, 7),
+        intArrayOf(8, 5, 9, 7, 6, 1, 4, 2, 3),
+        intArrayOf(4, 2, 6, 8, 5, 3, 7, 9, 1),
+        intArrayOf(7, 1, 3, 9, 2, 4, 8, 5, 6),
+        intArrayOf(9, 6, 1, 5, 3, 7, 2, 8, 4),
+        intArrayOf(2, 8, 7, 4, 1, 9, 6, 3, 5),
+        intArrayOf(3, 4, 5, 2, 8, 6, 1, 7, 9)
+    )
+
     var numberSelected by remember { mutableStateOf(0) }
     var grid by remember { mutableStateOf(gridInitial) }
     var cellSelected: Pair<Int, Int>? by remember { mutableStateOf(null) }
 
-    //viewModel.getAllGrid()
+    //val level = gridLevel as Level
+
 
     GameContent(
         grid = grid,
@@ -73,11 +96,18 @@ fun GameScreen(navController: NavController, viewModel: GameVM, gridLevel: Strin
                 }
             }
         },
+        onSolve = {
+            if (grid.contentEquals(gridFinal)) {
+                Log.i("RESULT", "You got it CORRECT")
+            } else {
+                Log.i("RESULT", "OUUUPSIE try again")
+            }
+        }
 
     )
 
 
-    Log.i("Number", "number selected : $numberSelected ")
+
 
 }
 
@@ -112,7 +142,8 @@ fun GameContent(
     onNumberSelected: (Int) -> Unit,
     cellSelected: Pair<Int, Int>?,
     onCellClicked: (Pair<Int, Int>?) -> Unit,
-    grid: Array<IntArray>
+    grid: Array<IntArray>,
+    onSolve: () -> Unit
 
 ) {
     Column(
@@ -178,7 +209,7 @@ fun GameContent(
             )
 
         RedButton(
-            onClick = {},
+            onClick = onSolve,
             modifier = Modifier.align(Alignment.CenterHorizontally),
             text = stringResource(R.string.solve_button_text)
         )

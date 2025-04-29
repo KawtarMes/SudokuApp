@@ -58,6 +58,7 @@ class GameVM @Inject constructor(
     )
     val gridMutableStateFlow get() = _gridStateFlow
 
+
     private val _navigateToNextScreen = MutableSharedFlow<String>()
     val navigateToNextScreen = _navigateToNextScreen.asSharedFlow()
 
@@ -72,12 +73,16 @@ class GameVM @Inject constructor(
                 _gridStateFlow.value = grid
                 Log.i(
                     "GetGRIDbyLevel",
-                    "grid recuperé : $grid niveau recuperé: ${grid.level} , niveau demandé : $level"
+                    "grid recuperé : $grid lvl recuperé: ${grid.level} , lvl demandé : $level"
                 )
             }
 
 
         } catch (e: Exception) {
+            Log.i(
+                "GetGRIDbyLevelERR",
+                "grid erreur de recuperation  : ${e.message}"
+            )
 
         }
 

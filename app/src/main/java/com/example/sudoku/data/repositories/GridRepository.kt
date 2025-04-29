@@ -38,7 +38,7 @@ class GridRepository @Inject constructor(
             .from("grid")
             .select {
                 filter {
-                    eq("level", Level.Easy)
+                    eq("level", levelChosen)
                 }
             }.decodeSingle<GridDto>() // que la premiere grille
         return grid

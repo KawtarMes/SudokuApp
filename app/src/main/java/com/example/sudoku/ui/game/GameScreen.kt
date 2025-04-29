@@ -42,36 +42,20 @@ import com.example.sudoku.ui.theme.SudokuFontFamily
 @Composable
 fun GameScreen(navController: NavController, viewModel: GameVM, gridLevel: String) {
 
-    LaunchedEffect(Unit) {
+    LaunchedEffect(gridLevel) {
         viewModel.getGridByLevel(gridLevel)
 
     }
+    val gameGrid = viewModel.gridMutableStateFlow.collectAsState()
 
-    val gameGrid = viewModel.gridMutableStateFlow.collectAsState().value
 
+    fun gridListToArrayOfIntArray(grid: List<List<Int>>): Array<IntArray> {
+        val array = grid.map { it.toIntArray() }.toTypedArray()
+        return array
+    }
 
-    val gridInitial: Array<IntArray> = arrayOf(
-        intArrayOf(5, 3, 0, 0, 7, 0, 0, 0, 0),
-        intArrayOf(6, 0, 0, 1, 9, 5, 0, 0, 0),
-        intArrayOf(0, 9, 8, 0, 0, 0, 0, 6, 0),
-        intArrayOf(8, 0, 0, 0, 6, 0, 0, 0, 3),
-        intArrayOf(4, 0, 0, 8, 0, 3, 0, 0, 1),
-        intArrayOf(7, 0, 0, 0, 2, 0, 0, 0, 6),
-        intArrayOf(0, 6, 0, 0, 0, 0, 2, 8, 0),
-        intArrayOf(0, 0, 0, 4, 1, 9, 0, 0, 5),
-        intArrayOf(0, 0, 0, 0, 8, 0, 0, 7, 9)
-    )
-    val gridFinal: Array<IntArray> = arrayOf(
-        intArrayOf(5, 3, 4, 6, 7, 8, 9, 1, 2),
-        intArrayOf(6, 7, 2, 1, 9, 5, 3, 4, 8),
-        intArrayOf(1, 9, 8, 3, 4, 2, 5, 6, 7),
-        intArrayOf(8, 5, 9, 7, 6, 1, 4, 2, 3),
-        intArrayOf(4, 2, 6, 8, 5, 3, 7, 9, 1),
-        intArrayOf(7, 1, 3, 9, 2, 4, 8, 5, 6),
-        intArrayOf(9, 6, 1, 5, 3, 7, 2, 8, 4),
-        intArrayOf(2, 8, 7, 4, 1, 9, 6, 3, 5),
-        intArrayOf(3, 4, 5, 2, 8, 6, 1, 7, 9)
-    )
+    val gridInitial: Array<IntArray> = gridListToArrayOfIntArray(gameGrid.value.gridStart)
+    val gridFinal: Array<IntArray> = gridListToArrayOfIntArray(gameGrid.value.gridSolution)
 
     var numberSelected by remember { mutableStateOf(0) }
     var grid by remember { mutableStateOf(gridInitial) }

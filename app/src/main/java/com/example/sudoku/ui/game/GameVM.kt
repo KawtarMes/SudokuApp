@@ -5,12 +5,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.sudoku.data.dtos.GridDto
 import com.example.sudoku.data.repositories.GridRepository
+import com.example.sudoku.navigation.Screen
 import com.example.sudoku.utils.Level
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -56,7 +58,17 @@ class GameVM @Inject constructor(
             )
         )
     )
-    val gridMutableStateFlow get() = _gridStateFlow
+    val gridMutableStateFlow get() = _gridStateFlow.asStateFlow()
+
+    val gridSolution = gridMutableStateFlow.value.gridSolution
+    val gridInitial = gridMutableStateFlow.value.gridStart
+
+    private val _messageStateFlow = MutableStateFlow("")
+    val messageStateFlow = _messageStateFlow.asStateFlow()
+
+    private val _dialogStateFlow = MutableStateFlow("")
+    val dialogStateFlow = _dialogStateFlow.asStateFlow()
+
 
 
     private val _navigateToNextScreen = MutableSharedFlow<String>()
@@ -79,14 +91,44 @@ class GameVM @Inject constructor(
 
 
         } catch (e: Exception) {
+            _messageStateFlow.value = "Error getting grid try again"
+
             Log.i(
                 "GetGRIDbyLevelERR",
                 "grid erreur de recuperation  : ${e.message}"
             )
 
         }
+    }
 
 
+    //converting solving grids
+    private fun gridListToArrayOfIntArray(grid: List<List<Int>>): Array<IntArray> {
+        val array = grid.map {
+            it.toIntArray()
+        }.toTypedArray()
+        return array
+    }
+
+    fun getGridIntialArray(): Array<IntArray> {
+        return gridListToArrayOfIntArray(gridInitial)
+    }
+
+    fun solveGrid(grid: Array<IntArray>) {
+
+
+        if (grid.contentEquals(
+                gridListToArrayOfIntArray(gridSolution)
+            )
+        ) {
+            viewModelScope.launch {
+                _navigateToNextScreen.emit(Screen.Result.route)
+            }
+        } else {
+            _dialogStateFlow.value = "OUPSIE , grid incorrect . Try again ?"
+
+            Log.i("RESULT", "OUUUPSIE try again")
+        }
     }
 
 

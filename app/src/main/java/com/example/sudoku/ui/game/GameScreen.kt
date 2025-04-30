@@ -1,6 +1,6 @@
 package com.example.sudoku.ui.game
 
-import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -21,6 +21,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -42,27 +43,16 @@ import com.example.sudoku.ui.theme.SudokuFontFamily
 @Composable
 fun GameScreen(navController: NavController, viewModel: GameVM, gridLevel: String) {
 
+
     LaunchedEffect(gridLevel) {
         viewModel.getGridByLevel(gridLevel)
-
-    }
-    val gameGrid = viewModel.gridMutableStateFlow.collectAsState()
-
-
-    fun gridListToArrayOfIntArray(grid: List<List<Int>>): Array<IntArray> {
-        val array = grid.map { it.toIntArray() }.toTypedArray()
-        return array
     }
 
-    val gridInitial: Array<IntArray> = gridListToArrayOfIntArray(gameGrid.value.gridStart)
-    val gridFinal: Array<IntArray> = gridListToArrayOfIntArray(gameGrid.value.gridSolution)
-
+    val toastMessage by viewModel.messageStateFlow.collectAsState()
+    val gridInitial: Array<IntArray> = viewModel.getGridIntialArray()
     var numberSelected by remember { mutableStateOf(0) }
     var grid by remember { mutableStateOf(gridInitial) }
     var cellSelected: Pair<Int, Int>? by remember { mutableStateOf(null) }
-
-    //val level = gridLevel as Level
-
 
     GameContent(
         grid = grid,
@@ -81,17 +71,23 @@ fun GameScreen(navController: NavController, viewModel: GameVM, gridLevel: Strin
             }
         },
         onSolve = {
-            if (grid.contentEquals(gridFinal)) {
-                Log.i("RESULT", "You got it CORRECT")
-            } else {
-                Log.i("RESULT", "OUUUPSIE try again")
-            }
+            viewModel.solveGrid(grid)
         }
 
     )
 
+    LaunchedEffect(Unit) {
+        viewModel.navigateToNextScreen.collect { route ->
+            navController.navigate(route)
+        }
+    }
 
 
+    val context = LocalContext.current
+    LaunchedEffect(toastMessage) {
+        if (toastMessage != "")
+            Toast.makeText(context, toastMessage, Toast.LENGTH_SHORT).show()
+    }
 
 }
 
